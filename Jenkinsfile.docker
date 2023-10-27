@@ -55,7 +55,7 @@ pipeline {
                             DOCKER_IMAGE_AMD64 = "registry.samipsolutions.fi/library/vyos-build:" + env.GIT_BRANCH_NAME
                             sh "docker build --no-cache --tag ${DOCKER_IMAGE_AMD64} docker"
                             if (! isCustomBuild()) {
-                                withDockerRegistry([credentialsId: "DockerHub"]) {
+                                withDockerRegistry([credentialsId: "Registry"]) {
                                     sh "docker push ${DOCKER_IMAGE_AMD64}"
                                 }
                             }
@@ -71,7 +71,7 @@ pipeline {
                             DOCKER_IMAGE_ARM64 = "registry.samipsolutions.fi/library/vyos-build:" + env.GIT_BRANCH_NAME + "-arm64"
                             sh "docker build --no-cache --tag ${DOCKER_IMAGE_ARM64} --build-arg ARCH=arm64v8/ docker"
                             if (! isCustomBuild()) {
-                                withDockerRegistry([credentialsId: "DockerHub"]) {
+                                withDockerRegistry([credentialsId: "Registry"]) {
                                     sh "docker push ${DOCKER_IMAGE_ARM64}"
                                 }
                             }
