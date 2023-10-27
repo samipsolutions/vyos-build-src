@@ -32,7 +32,7 @@ node('Docker') {
             if (branchName.equals('master'))
                 branchName = 'sagitta'
 
-            env.DOCKER_IMAGE = 'vyos/vyos-build:' + branchName
+            env.DOCKER_IMAGE = 'registry.samipsolutions.fi/library/vyos-build:' + branchName
 
             // Get the sagitta UID and GID from the jenkins agent to allow use of the same UID inside Docker
             env.USR_ID = sh(returnStdout: true, script: 'id -u').toString().trim()
