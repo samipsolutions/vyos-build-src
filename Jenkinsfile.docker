@@ -62,22 +62,6 @@ pipeline {
                         }
                     }
                 }
-                stage('arm64') {
-                    agent {
-                        label "ec2_arm64"
-                    }
-                    steps {
-                        script {
-                            DOCKER_IMAGE_ARM64 = "registry.samipsolutions.fi/library/vyos-build:" + env.GIT_BRANCH_NAME + "-arm64"
-                            sh "docker build --no-cache --tag ${DOCKER_IMAGE_ARM64} --build-arg ARCH=arm64v8/ docker"
-                            if (! isCustomBuild()) {
-                                withDockerRegistry([credentialsId: "Registry"]) {
-                                    sh "docker push ${DOCKER_IMAGE_ARM64}"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }
